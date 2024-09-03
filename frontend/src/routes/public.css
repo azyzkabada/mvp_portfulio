@@ -1,0 +1,53 @@
+@import url("../../template/css/bootstrap.min.css");
+@import url("../../template/css/owl.carousel.min.css");
+@import url("../../template/css/owl.theme.default.min.css");
+@import url("../../template/css/jquery.fancybox.min.css");
+@import url("../../template/fonts/icomoon/style.css");
+@import url("../../template/fonts/flaticon/font/flaticon.css");
+@import url("../../template/css/aos.css");
+@import url("../../template/css/style.css");
+
+@import "../../template/packs/fontawesome/css/fontawesome.css";
+@import "../../template/packs/fontawesome/css/solid.css";
+
+/* /// */
+.Toastify__toast {
+  position: fixed;
+  right: 20px;
+  top: 50px;
+  max-width: 350px; /* Largeur maximale du toast */
+  width: auto; /* Largeur ajustée automatiquement */
+  z-index: 10000; /* Assurez-vous que le toast est au-dessus des autres éléments */
+  padding: 15px; /* Espace intérieur */
+  border-radius: 8px; /* Coins arrondis */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre douce */
+  color: #fff; /* Couleur du texte */
+  background-color: #333; /* Couleur de fond */
+  display: flex;
+  align-items: center;
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; /* Transition pour l'animation */
+  opacity: 1; /* Opacité de départ */
+}
+.Toastify__toast button {
+  display: none;
+}
+
+/* Positionner le toast à gauche mais glisse de la droite */
+.Toastify__toast--left {
+  left: 20px; /* Position à gauche */
+  transform: translateX(100%); /* Commence hors de l'écran à droite */
+}
+
+.Toastify__toast--left.Toastify__toast--enter {
+  transform: translateX(0); /* Animation pour faire entrer le toast */
+}
+
+/* Positionner le toast à droite mais glisse de la gauche */
+.Toastify__toast--right {
+  right: 20px; /* Position à droite */
+  transform: translateX(-100%); /* Commence hors de l'écran à gauche */
+}
+
+.Toastify__toast--right.Toastify__toast--enter {
+  transform: translateX(0); /* Animation pour faire entrer le toast */
+}

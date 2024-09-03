@@ -24,6 +24,10 @@ app.use((err, req, res, next) => {
 });
 
 //* ROUTES
+//Authentication
+const authenticationRouter = require("./routes/auths.route.js");
+app.use("/api", authenticationRouter);
+
 //Settings
 const settingsRouter = require("./routes/settings.route.js");
 app.use("/api", settingsRouter);

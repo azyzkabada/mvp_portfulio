@@ -2,12 +2,13 @@ module.exports = (sequelize, DataTypes) => {
   const Admins = sequelize.define(
     "Admins",
     {
-      username: {
+      email: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
         validate: {
           notEmpty: true,
+          isEmail: true,
         },
       },
       password: {
