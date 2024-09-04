@@ -1,6 +1,6 @@
 import React from "react";
 import { ToastContainer, toast } from "react-toastify";
-import helper from "../../api/admin/auth.admins.js"; // Ensure the path is correct
+import helper from "../../api/admin/auth.api.js"; // Ensure the path is correct
 const { logout } = helper;
 
 const Navbar = () => {
@@ -32,9 +32,9 @@ const Navbar = () => {
       <nav className="site-nav dark mb-5 site-navbar-target">
         <div className="container">
           <div className="site-navigation">
-            <a href="/" className="logo m-0">
+            {/* <a href="/" className="logo m-0">
               azyz_kabada<span className="text-primary">.</span>
-            </a>
+            </a> */}
 
             <button
               onClick={handleLogout}

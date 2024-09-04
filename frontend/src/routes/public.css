@@ -51,3 +51,8 @@
 .Toastify__toast--right.Toastify__toast--enter {
   transform: translateX(0); /* Animation pour faire entrer le toast */
 }
+
+.bold700 {
+  font-weight: 700 !important;
+  color: #000000 !important;
+}

@@ -1,5 +1,6 @@
 const express = require("express");
 const {
+  getSettings,
   editAbout,
   editBrandLogo,
   editDisplaySettings,
@@ -8,16 +9,19 @@ const {
 
 const router = express.Router();
 
+// get all setting
+router.get("/settings", getSettings);
+
 //  edit the about section
-router.patch("/settings/edit-about", editAbout);
+router.put("/settings/edit-about", editAbout);
 
 //  edit the brand logo
-router.patch("/settings/edit-brand-logo", editBrandLogo);
+router.put("/settings/edit-brand-logo", editBrandLogo);
 
 //  edit display settings
-router.patch("/settings/edit-display-settings", editDisplaySettings);
+router.put("/settings/edit-display-settings", editDisplaySettings);
 
 // edit multiple settings
-router.patch("/settings", editSettings);
+router.put("/settings", editSettings);
 
 module.exports = router;

@@ -5,7 +5,7 @@ import Dashboard from "./routes/Dashboard";
 import Public from "./routes/Public";
 import UrlListener from "./components/UrlListener.jsx"; // Importer le composant UrlListener
 
-import helper from "../api/admin/auth.admins"; // Importer la fonction login depuis authService
+import helper from "../api/admin/auth.api.js"; // Importer la fonction login depuis authService
 const { getToken, logout } = helper;
 
 function App() {
@@ -25,7 +25,7 @@ function App() {
 
   return (
     <Router>
-      <UrlListener setIsToken={setIsToken} />{" "}
+      {/* <UrlListener setIsToken={setIsToken} />{" "} */}
       {/* Utiliser le composant UrlListener */}
       <Routes>
         <Route path="/" element={<Public />} />

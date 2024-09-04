@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import helper from "../../api/admin/auth.admins"; // Importer logout depuis le helper
+import helper from "../../api/admin/auth.api.js"; // Importer logout depuis le helper
 const { logout } = helper;
 
 const UrlListener = ({ setIsToken }) => {

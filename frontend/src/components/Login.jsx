@@ -1,6 +1,6 @@
 // Login.js
 import React, { useState } from "react";
-import API from "../../api/admin/auth.admins.js"; // Importer la fonction login depuis authService
+import API from "../../api/admin/auth.api.js"; // Importer la fonction login depuis authService
 const { login } = API;
 
 const Login = ({ handelDep }) => {

@@ -3,10 +3,13 @@ const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
 
+//
+require("dotenv").config();
+
 // Databases
 const { testConnection } = require("./database/index.js");
 const { syncModels } = require("./models/main");
-// !syncModels();
+// syncModels();
 
 // Création de l'application Express
 const app = express();
