@@ -28,5 +28,4 @@ const API = {
   },
 };
 
-// Fonction pour gérer l'authentification de l'utilisateur
 export default API;

@@ -18,7 +18,6 @@ function App() {
   }, [dep]);
 
   const handelDep = () => {
-    console.log("Logout clicked");
     setDep(!dep);
   };
 

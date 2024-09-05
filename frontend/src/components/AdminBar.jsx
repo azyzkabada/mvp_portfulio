@@ -32,10 +32,6 @@ const Navbar = () => {
       <nav className="site-nav dark mb-5 site-navbar-target">
         <div className="container">
           <div className="site-navigation">
-            {/* <a href="/" className="logo m-0">
-              azyz_kabada<span className="text-primary">.</span>
-            </a> */}
-
             <button
               onClick={handleLogout}
               className=" ml-auto float-right site-menu-toggle  d-inline-block d-lg-inline-block"

@@ -4,7 +4,6 @@ const Intro = ({ data }) => {
   const [datas, setDatas] = useState([]);
   useEffect(() => {
     setDatas(data);
-    console.log(datas);
   }, []);
 
   return (

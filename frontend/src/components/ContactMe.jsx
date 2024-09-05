@@ -4,7 +4,6 @@ import API from "../../api/common/messages.api";
 const { createMessage } = API;
 
 const Projects = ({ switchView }) => {
-  // State for form inputs
   const [formData, setFormData] = useState({
     firstname: "",
     lastname: "",
@@ -12,10 +11,8 @@ const Projects = ({ switchView }) => {
     message: "",
   });
 
-  // State for feedback message
   const [feedback, setFeedback] = useState("");
 
-  // Handler for form input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -24,11 +21,9 @@ const Projects = ({ switchView }) => {
     }));
   };
 
-  // Handler for form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Destructuring lastname correctly from formData
     const { firstname, lastname, email, message } = formData;
 
     const newMessage = {
@@ -45,7 +40,6 @@ const Projects = ({ switchView }) => {
       setFeedback("Failed to send message. Please try again.");
     }
 
-    // Reset form fields
     setFormData({
       firstname: "",
       lastname: "",

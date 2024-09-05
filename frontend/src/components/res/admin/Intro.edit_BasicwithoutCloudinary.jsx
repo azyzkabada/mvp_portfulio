@@ -13,7 +13,6 @@ const Dashboard = () => {
   const [data, setData] = useState({});
   const [message, setMessage] = useState("");
 
-  // Fetch settings on component mount
   const fetchData = async () => {
     try {
       const data = await getData();
@@ -29,7 +28,6 @@ const Dashboard = () => {
     fetchData();
   }, []);
 
-  // Handle input changes
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -37,14 +35,13 @@ const Dashboard = () => {
     });
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const result = await updateSettings(formData);
-      setMessage(result.message); // Show success message
+      setMessage(result.message);
     } catch (error) {
-      setMessage(error.message); // Show error message
+      setMessage(error.message);
     }
   };
 

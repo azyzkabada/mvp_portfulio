@@ -62,7 +62,6 @@ const Main = ({ handelDep }) => {
   const [projectId, setProjectId] = useState(null);
 
   const switchView = (view, id = null) => {
-    console.log(id);
     setProjectId(id);
     setCurrentView(view);
   };

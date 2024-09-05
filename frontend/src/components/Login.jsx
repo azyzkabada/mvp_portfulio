@@ -14,14 +14,15 @@ const Login = ({ handelDep }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(null); // Réinitialiser l'erreur
+    setError(null);
     try {
-      // Appeler la fonction login pour authentifier l'utilisateur
       const token = await login(formData);
+      localStorage.setItem("The Token", token);
+
       if (token) {
         handelDep();
       }
-      // Logique supplémentaire après une connexion réussie
+
       console.log("Login successful, token stored:", token);
     } catch (err) {
       setError(err.message);

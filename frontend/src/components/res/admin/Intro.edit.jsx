@@ -16,7 +16,6 @@ const IntroDetails = () => {
   const [message, setMessage] = useState("");
   const [uploading, setUploading] = useState(false);
 
-  // Fetch data before edit
   const fetchData = async () => {
     try {
       const data = await getData();
@@ -32,7 +31,6 @@ const IntroDetails = () => {
     fetchData();
   }, []);
 
-  // Handle input changes
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -40,7 +38,6 @@ const IntroDetails = () => {
     });
   };
 
-  // Handle image upload
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
     if (!file) return;

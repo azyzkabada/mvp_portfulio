@@ -2,7 +2,6 @@ import axios from "axios";
 
 const API_URL = "http://localhost:3000/api";
 
-// Configuration de Cloudinary
 const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/dlyf0syzk/image/upload";
 const UPLOAD_PRESET = "testpresets";
 

@@ -18,7 +18,6 @@ const CreateProject = () => {
   const [message, setMessage] = useState("");
   const [uploading, setUploading] = useState(false);
 
-  // Handle input changes
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -26,7 +25,6 @@ const CreateProject = () => {
     });
   };
 
-  // Handle form submission for creating a new project
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -37,7 +35,6 @@ const CreateProject = () => {
     }
   };
 
-  // Handle image upload
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
     if (!file) return;

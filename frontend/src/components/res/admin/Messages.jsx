@@ -9,8 +9,6 @@ const Messages = ({ switchView }) => {
     try {
       const response = await getMessages();
       setData(response.data);
-      console.log("hola", response.data);
-      console.log("hol2", data);
     } catch (error) {
       console.error("Erreur:", error);
     }
@@ -56,7 +54,6 @@ const Messages = ({ switchView }) => {
           </div>
         </div>
       </div>
-      {/* {message && <p className="mt-3">{message}</p>} */}
     </div>
   );
 };

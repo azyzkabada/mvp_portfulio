@@ -8,9 +8,7 @@ const Projects = ({ switchView }) => {
   const fetchData = async () => {
     try {
       const response = await getData();
-      console.log(response, "----res");
       setData(response.data);
-      console.log(data, "----data");
     } catch (error) {
       1;
       console.error("Erreur:", error);

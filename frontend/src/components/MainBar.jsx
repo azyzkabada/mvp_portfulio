@@ -1,6 +1,4 @@
 import React from "react";
-import helper from "../../api/admin/auth.api.js"; // Ensure the path is correct
-const { logout } = helper;
 
 const Sidebar = () => {
   return (

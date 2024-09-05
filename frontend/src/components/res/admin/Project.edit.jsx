@@ -18,7 +18,6 @@ const ProjectDetails = ({ projectId }) => {
   const [message, setMessage] = useState("");
   const [uploading, setUploading] = useState(false);
 
-  // Fetch data before edit
   const fetchData = async () => {
     try {
       const data = await getOneData(projectId);
@@ -29,7 +28,6 @@ const ProjectDetails = ({ projectId }) => {
     }
   };
 
-  // Handle input changes
   const handleChange = (e) => {
     console.log(formData);
     setFormData({
@@ -42,7 +40,6 @@ const ProjectDetails = ({ projectId }) => {
     fetchData();
   }, []);
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -52,7 +49,7 @@ const ProjectDetails = ({ projectId }) => {
       setMessage(error.message);
     }
   };
-  // Handle image upload
+
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
     if (!file) return;

@@ -9,7 +9,6 @@ const ListProjects = ({ switchView }) => {
   const [dep, setDeps] = useState(true);
 
   const setDep = () => {
-    console.log;
     setDeps(!dep);
   };
 
@@ -78,7 +77,6 @@ const ListProjects = ({ switchView }) => {
           </div>
         </div>
       </div>
-      {/* {message && <p className="mt-3">{message}</p>} */}
     </div>
   );
 };

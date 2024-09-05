@@ -11,7 +11,6 @@ const AdminDetails = () => {
   });
   const [message, setMessage] = useState("");
 
-  // Fetch data before edit
   const fetchData = async () => {
     try {
       const user = await getUser();
@@ -33,7 +32,6 @@ const AdminDetails = () => {
     fetchData();
   }, []);
 
-  // Handle input changes
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -41,7 +39,6 @@ const AdminDetails = () => {
     });
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
