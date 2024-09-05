@@ -10,7 +10,7 @@ const Navbar = () => {
     logout();
     setTimeout(() => {
       window.location.href = "/";
-    }, 3000);
+    }, 1500);
   };
 
   return (

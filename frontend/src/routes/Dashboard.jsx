@@ -1,58 +1,46 @@
 import React, { useState } from "react";
 import AdminNavbar from "../components/AdminBar.jsx";
-import { NavLink } from "react-router-dom";
-import Dashboard from "../components/res/admin/Intro.edit.jsx";
-// Import your view components
-// Define components for the routes
-
-const Users = () => <h2>Users View</h2>;
-const Settings = () => <h2>Settings View</h2>;
-const Reports = () => <h2>Reports View</h2>;
-const NotFound = () => <h2>404 - Page Not Found</h2>;
+import Intro from "../components/res/admin/Intro.edit.jsx";
+import Projects from "../components/res/admin/Projects.jsx";
+import ProjectEdit from "../components/res/admin/Project.edit.jsx";
+import Messages from "../components/res/admin/Messages.jsx";
+import AdminDetails from "../components/res/admin/User.edit.jsx";
 
 const Sidebar = ({ onViewChange }) => {
   return (
     <div className="bg-dark text-white vh-100 p-3 rounded-lg">
-      <h4 className="text-center">Admin Dashboard</h4>
+      <h4 className="text-center">Admin CMS</h4>
       <ul className="nav flex-column">
         <li className="nav-item">
           <button
             className="nav-link text-white btn btn-link"
-            onClick={() => onViewChange("dashboard")}
+            onClick={() => onViewChange("intro")}
           >
-            <i class="fas fa-heart"></i> Intro
+            <i className="fas fa-heart"></i> Intro
           </button>
         </li>
         <li className="nav-item">
           <button
             className="nav-link text-white btn btn-link"
-            onClick={() => onViewChange("users")}
+            onClick={() => onViewChange("projects")}
           >
-            <i className="fas fa-users"></i> Users
+            <i className="fas fa-diagram-project"></i> Projects
           </button>
         </li>
         <li className="nav-item">
           <button
             className="nav-link text-white btn btn-link"
-            onClick={() => onViewChange("settings")}
+            onClick={() => onViewChange("messages")}
           >
-            <i className="fas fa-cog"></i> Settings
+            <i className="fas fa-message"></i> Messages
           </button>
         </li>
         <li className="nav-item">
           <button
             className="nav-link text-white btn btn-link"
-            onClick={() => onViewChange("reports")}
+            onClick={() => onViewChange("user")}
           >
-            <i className="fas fa-chart-bar"></i> Reports
-          </button>
-        </li>
-        <li className="nav-item">
-          <button
-            className="nav-link text-white btn btn-link"
-            onClick={() => alert("Logged out")}
-          >
-            <i className="fas fa-sign-out-alt"></i> Logout
+            <i className="fas fa-user"></i> User
           </button>
         </li>
       </ul>
@@ -61,30 +49,40 @@ const Sidebar = ({ onViewChange }) => {
 };
 
 const Main = ({ handelDep }) => {
-  const [currentView, setCurrentView] = useState("dashboard");
+  const [currentView, setCurrentView] = useState("intro");
+  const [projectId, setProjectId] = useState(null);
 
-  const switchView = (view) => {
+  const switchView = (view, id = null) => {
+    console.log(id);
+    setProjectId(id);
     setCurrentView(view);
   };
 
   const renderView = () => {
     switch (currentView) {
-      case "dashboard":
-        return <Dashboard />;
-      case "users":
-        return <Users />;
-      case "settings":
-        return <Settings />;
-      case "reports":
-        return <Reports />;
+      case "intro":
+        return <Intro />;
+
+      case "projects":
+        return <Projects switchView={switchView} />;
+
+      case "project":
+        return <ProjectEdit projectId={projectId} />;
+
+      case "messages":
+        return <Messages />;
+
+      case "user":
+        return <AdminDetails />;
+
       default:
-        return <Dashboard />;
+        return <Intro />;
     }
   };
 
   return (
     <>
-      <AdminNavbar handelDep={handelDep} />
+      <AdminNavbar IntroandelDep={handelDep} />
       <div className="container mt-5">
         <div className="row">
           <div className="col-md-3 col-lg-2 p-0">

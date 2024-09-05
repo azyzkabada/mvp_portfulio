@@ -5,7 +5,7 @@ const getSettings = async (req, res) => {
   try {
     // Fetch the settings record from the database
     const settings = await SettingsModel.findOne();
-    console.log(req.body);
+    // console.log(req.body);
     // Check if settings were found
     if (settings) {
       res.json({
@@ -24,7 +24,7 @@ const getSettings = async (req, res) => {
 };
 
 const editAbout = async (req, res) => {
-  console.log("houni", req.body);
+  // console.log("houni", req.body);
   try {
     const settings = await SettingsModel.findOne({
       where: { id: 1 },
@@ -60,7 +60,7 @@ const editAbout = async (req, res) => {
 const editAbout2 = async (req, res) => {
   try {
     const { about } = req.body;
-    console.log(req.body);
+    // console.log(req.body);
     // Update the about section
     const updated = await SettingsModel.update(req.body, {
       where: { id: 1 },

@@ -8,6 +8,11 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.DATEONLY,
         allowNull: false,
       },
+      mainImage: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: "https://cdn-icons-png.flaticon.com/512/662/662608.png",
+      },
       projectName: {
         type: DataTypes.STRING,
         allowNull: false,

@@ -1,45 +1,57 @@
 import React, { useEffect, useState } from "react";
-import imageUploader from "../../../../api/admin/imageUploader.api";
-import API from "../../../../api/admin/intro.api.js";
-const { updateSettings, getData } = API;
+import imageUploader from "../../../../api/admin/imageUploader.api.js";
+import API from "../../../../api/common/projects.api.js";
+const { getOneData, editProject } = API;
 const { uploadImage } = imageUploader;
 
-const IntroDetails = () => {
+const ProjectDetails = ({ projectId }) => {
   const [formData, setFormData] = useState({
-    fullName: "",
-    imageUrl: "",
-    biography: "",
-    specialite: "",
-    introductions: "",
+    id: "",
+    date: "",
+    mainImage: "",
+    projectName: "",
+    content: "",
+    display: false,
+    likes: 0,
   });
-  const [data, setData] = useState({});
+
   const [message, setMessage] = useState("");
   const [uploading, setUploading] = useState(false);
 
   // Fetch data before edit
   const fetchData = async () => {
     try {
-      const data = await getData();
-
-      setData(data.data.about);
-      setFormData(data.data.about);
+      const data = await getOneData(projectId);
+      console.log("houni", data);
+      setFormData(data.data);
     } catch (error) {
       setMessage(error.message);
     }
   };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
   // Handle input changes
   const handleChange = (e) => {
+    console.log(formData);
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
   };
 
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  // Handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const result = await editProject(formData.id, formData);
+      setMessage(result.message);
+    } catch (error) {
+      setMessage(error.message);
+    }
+  };
   // Handle image upload
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
@@ -47,8 +59,14 @@ const IntroDetails = () => {
     setUploading(true);
     try {
       const imageUrl = await uploadImage(file);
-      setFormData((prev) => ({ ...prev, imageUrl }));
-      setMessage("Image uploaded successfully!");
+      console.log("ok ///", imageUrl);
+      if (imageUrl) {
+        let newForm = { ...formData };
+        newForm.mainImage = imageUrl;
+        setFormData(newForm);
+        setMessage("Image uploaded successfully!");
+        console.log("ok ///", formData);
+      }
     } catch (error) {
       setMessage("Failed to upload image.");
     } finally {
@@ -56,37 +74,26 @@ const IntroDetails = () => {
     }
   };
 
-  // Handle form submission
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const result = await updateSettings(formData);
-      setMessage(result.message);
-    } catch (error) {
-      setMessage(error.message);
-    }
-  };
-
   return (
     <div className="p-4">
-      <h5>Update Intro Section</h5>
+      <h5>Update Project Details</h5>
       <form onSubmit={handleSubmit}>
         <div className="mb-3 mt-5">
-          <h4 htmlFor="fullName" className="bold700 dark">
-            Full Name
+          <h4 htmlFor="projectName" className="bold700 dark">
+            Project Name
           </h4>
           <input
             type="text"
             className="form-control"
-            id="fullName"
-            name="fullName"
-            value={formData.fullName}
+            id="projectName"
+            name="projectName"
+            value={formData.projectName}
             onChange={handleChange}
           />
         </div>
         <div className="mb-3">
           <h4 htmlFor="imageUpload" className="bold700 dark">
-            Upload Image
+            Upload Main Image
           </h4>
           <input
             type="file"
@@ -96,55 +103,42 @@ const IntroDetails = () => {
             onChange={handleImageUpload}
           />
           {uploading && <p>Uploading image...</p>}
-          {formData.imageUrl && (
+          {formData.mainImage && (
             <img
-              src={formData.imageUrl}
+              src={formData.mainImage}
               alt="Uploaded"
               style={{ width: "100px", marginTop: "10px" }}
             />
           )}
         </div>
         <div className="mb-3">
-          <h4 htmlFor="biography" className="bold700 dark">
-            Biography
+          <h4 htmlFor="content" className="bold700 dark">
+            Content
           </h4>
           <textarea
             className="form-control"
-            id="biography"
-            name="biography"
+            id="content"
+            name="content"
             rows="5"
-            value={formData.biography}
+            value={formData.content}
             onChange={handleChange}
           ></textarea>
         </div>
         <div className="mb-3">
-          <h4 htmlFor="specialite" className="bold700 dark">
-            Specialité
+          <h4 htmlFor="date" className="bold700 dark">
+            Date
           </h4>
           <input
-            type="text"
+            type="date"
             className="form-control"
-            id="specialite"
-            name="specialite"
-            value={formData.specialite}
+            id="date"
+            name="date"
+            value={formData.date}
             onChange={handleChange}
           />
         </div>
-        <div className="mb-3">
-          <h4 htmlFor="introductions" className="bold700 dark">
-            Introductions
-          </h4>
-          <textarea
-            className="form-control"
-            id="introductions"
-            name="introductions"
-            rows="3"
-            value={formData.introductions}
-            onChange={handleChange}
-          ></textarea>
-        </div>
         <button type="submit" className="btn btn-primary">
-          Update Profile
+          Update Project
         </button>
       </form>
 
@@ -153,4 +147,4 @@ const IntroDetails = () => {
   );
 };
 
-export default IntroDetails;
+export default ProjectDetails;

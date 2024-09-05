@@ -4,7 +4,11 @@ const { ProjectsModel } = require("../../../models/main.js");
 const createProject = async (req, res) => {
   try {
     const { date, projectName, content } = req.body;
-    const newProject = await Projects.create({ date, projectName, content });
+    const newProject = await ProjectsModel.create({
+      date,
+      projectName,
+      content,
+    });
     res
       .status(201)
       .json({ message: "Projet créé avec succès.", data: newProject });
@@ -19,24 +23,29 @@ const createProject = async (req, res) => {
 const updateIsDisplayStatus = async (req, res) => {
   try {
     const { id } = req.params;
-    const [updated] = await Projects.update(
-      { display: sequelize.literal("NOT display") },
+
+    const project = await ProjectsModel.findByPk(id);
+    if (!project) {
+      return res.status(404).json({ message: "Projet non trouvé." });
+    }
+
+    const newDisplayStatus = !project.display;
+
+    await ProjectsModel.update(
+      { display: newDisplayStatus },
       { where: { id } }
     );
 
-    if (updated) {
-      const updatedProject = await Projects.findByPk(id);
-      res.json({
-        message: "Statut d'affichage mis à jour avec succès.",
-        data: updatedProject,
-      });
-    } else {
-      res.status(404).json({ message: "Projet non trouvé." });
-    }
+    const updatedProject = await ProjectsModel.findByPk(id);
+
+    res.json({
+      message: "Statut d'affichage mis à jour avec succès.",
+      data: updatedProject,
+    });
   } catch (error) {
     res.status(500).json({
       message: "Erreur lors de la mise à jour du statut d'affichage.",
-      error,
+      error: error.message || error,
     });
   }
 };
@@ -45,13 +54,13 @@ const updateIsDisplayStatus = async (req, res) => {
 const updateArchivedStatus = async (req, res) => {
   try {
     const { id } = req.params;
-    const [updated] = await Projects.update(
+    const [updated] = await ProjectsModel.update(
       { isArchived: sequelize.literal("NOT isArchived") },
       { where: { id } }
     );
 
     if (updated) {
-      const updatedProject = await Projects.findByPk(id);
+      const updatedProject = await ProjectsModel.findByPk(id);
       res.json({
         message: "Statut d'archivage mis à jour avec succès.",
         data: updatedProject,
@@ -71,7 +80,7 @@ const updateArchivedStatus = async (req, res) => {
 const deleteProject = async (req, res) => {
   try {
     const { id } = req.params;
-    const deleted = await Projects.destroy({ where: { id } });
+    const deleted = await ProjectsModel.destroy({ where: { id } });
 
     if (deleted) {
       res.json({ message: "Projet supprimé avec succès." });
@@ -89,14 +98,22 @@ const deleteProject = async (req, res) => {
 const editProject = async (req, res) => {
   try {
     const { id } = req.params;
-    const { date, projectName, content, display, likes, isArchived } = req.body;
-    const [updated] = await Projects.update(
-      { date, projectName, content, display, likes, isArchived },
+    const {
+      mainImage,
+      date,
+      projectName,
+      content,
+      display,
+      likes,
+      isArchived,
+    } = req.body;
+    const [updated] = await ProjectsModel.update(
+      { date, projectName, content, display, likes, isArchived, mainImage },
       { where: { id } }
     );
 
     if (updated) {
-      const updatedProject = await Projects.findByPk(id);
+      const updatedProject = await ProjectsModel.findByPk(id);
       res.json({
         message: "Projet modifié avec succès.",
         data: updatedProject,
@@ -111,10 +128,64 @@ const editProject = async (req, res) => {
   }
 };
 
+// 6. Get all projects
+const getAllProjects = async (req, res) => {
+  try {
+    const projects = await ProjectsModel.findAll({
+      where: {
+        display: true,
+      },
+    });
+    res.json({
+      message: "Projets récupérés avec succès.",
+      data: projects,
+    });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Erreur lors de la récupération des projets.", error });
+  }
+};
+
+// 7. Get all projects
+const getAllProjectsAll = async (req, res) => {
+  try {
+    const projects = await ProjectsModel.findAll();
+    res.json({
+      message: "Projets récupérés avec succès.",
+      data: projects,
+    });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Erreur lors de la récupération des projets.", error });
+  }
+};
+
+// 8. Get one project
+const getOneProject = async (req, res) => {
+  const { id } = req.params;
+  // console.log(id);
+  try {
+    const project = await ProjectsModel.findByPk(id);
+    res.json({
+      message: "Projet récupéré avec succès.",
+      data: project,
+    });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Erreur lors de la récupération des projets.", error });
+  }
+};
+
 module.exports = {
+  getOneProject,
   createProject,
   updateIsDisplayStatus,
   updateArchivedStatus,
   deleteProject,
   editProject,
+  getAllProjects,
+  getAllProjectsAll,
 };

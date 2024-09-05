@@ -77,13 +77,13 @@ const loginUserBasic = async (req, res) => {
 const registerUser = async (req, res) => {
   const { email, password, fullName, role } = req.body;
 
-  console.log(email, password, fullName);
+  // console.log(email, password, fullName);
   try {
     // const existingUser = await AdminsModel.findOne({ where: { email } });
     // if (existingUser) {
     //   return res.status(400).json({ message: "User already exists" });
     // }
-    console.log(email, password, fullName);
+    // console.log(email, password, fullName);
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const user = await AdminsModel.create({
@@ -99,7 +99,61 @@ const registerUser = async (req, res) => {
   }
 };
 
+// Get user by ID or email
+const getUser = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    let user;
+
+    if (id) {
+      user = await AdminsModel.findByPk(id);
+    } else {
+      return res.status(400).json({ message: "ID or email is required" });
+    }
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+// Update user ID or email
+
+const updateUser = async (req, res) => {
+  const { id } = req.params;
+  const { email, password, fullName } = req.body;
+  console.log("----------houni-----------", req.body);
+  try {
+    const user = await AdminsModel.findByPk(id);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    let hashedPassword;
+    if (password) {
+      hashedPassword = await bcrypt.hash(password, 10);
+    }
+
+    await user.update({
+      fullName: fullName || user.fullName,
+      email: email || user.email,
+      password: hashedPassword || user.password,
+    });
+
+    res.status(200).json({ message: "User updated successfully", user });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
 module.exports = {
   loginUser,
   registerUser,
+  getUser,
+  updateUser,
 };

@@ -49,10 +49,21 @@ const updateArchiveStatus = async (req, res) => {
 // 3. Changer le statut de lecture d'un message
 const updateReadStatus = async (req, res) => {
   try {
-    const { id } = req.params; //
+    const { id } = req.params;
 
+    // Fetch the current status of the message
+    const message = await MessagesModel.findByPk(id);
+
+    if (!message) {
+      return res.status(404).json({ message: "Message non trouvé." });
+    }
+
+    // Determine the new status based on the current status
+    const newStatus = !message.isRead;
+
+    // Update the message with the new status
     const [updated] = await MessagesModel.update(
-      { isRead: sequelize.literal("NOT isRead") },
+      { isRead: newStatus },
       { where: { id } }
     );
 
@@ -63,7 +74,7 @@ const updateReadStatus = async (req, res) => {
         data: updatedMessage,
       });
     } else {
-      res.status(404).json({ message: "Message non trouvé." });
+      res.status(404).json({ message: "Erreur lors de la mise à jour." });
     }
   } catch (error) {
     res.status(500).json({
@@ -73,8 +84,24 @@ const updateReadStatus = async (req, res) => {
   }
 };
 
+// 4. Récupérer tous les messages
+const getMessages = async (req, res) => {
+  try {
+    const messages = await MessagesModel.findAll({
+      order: [["createdAt", "DESC"]],
+    });
+    res.json({ message: "Messages récupérés avec succès.", data: messages });
+  } catch (error) {
+    res.status(500).json({
+      message: "Erreur lors de la récupération des messages.",
+      error,
+    });
+  }
+};
+
 module.exports = {
   createMessage,
   updateArchiveStatus,
   updateReadStatus,
+  getMessages,
 };
