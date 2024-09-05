@@ -7,7 +7,7 @@ const Navbar = () => {
       <div className="container">
         <div className="site-navigation">
           <a href="/" className="logo m-0">
-            azyz_kabada<span className="text-primary">.</span>
+            portfolio <span className="text-primary">2.0</span>
           </a>
 
           <ul className="js-clone-nav d-none d-lg-inline-none site-menu float-right site-nav-wrap">

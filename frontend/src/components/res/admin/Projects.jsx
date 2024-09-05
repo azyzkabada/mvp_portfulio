@@ -6,6 +6,13 @@ import Row from "./RowTablsProjects.jsx";
 
 const ListProjects = ({ switchView }) => {
   const [data, setData] = useState([]);
+  const [dep, setDeps] = useState(true);
+
+  const setDep = () => {
+    console.log;
+    setDeps(!dep);
+  };
+
   const fetchData = async () => {
     try {
       const response = await getAllData();
@@ -16,7 +23,7 @@ const ListProjects = ({ switchView }) => {
   };
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [dep]);
 
   return (
     <div className="p-4">
@@ -57,7 +64,14 @@ const ListProjects = ({ switchView }) => {
               </tfoot>
               <tbody>
                 {data.map((e, i) => {
-                  return <Row key={i} data={e} switchView={switchView} />;
+                  return (
+                    <Row
+                      setDep={setDep}
+                      key={i}
+                      data={e}
+                      switchView={switchView}
+                    />
+                  );
                 })}
               </tbody>
             </table>

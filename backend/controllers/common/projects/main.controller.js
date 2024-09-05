@@ -3,11 +3,12 @@ const { ProjectsModel } = require("../../../models/main.js");
 // 1. Create a new project
 const createProject = async (req, res) => {
   try {
-    const { date, projectName, content } = req.body;
+    const { date, projectName, content, mainImage } = req.body;
     const newProject = await ProjectsModel.create({
       date,
       projectName,
       content,
+      mainImage,
     });
     res
       .status(201)

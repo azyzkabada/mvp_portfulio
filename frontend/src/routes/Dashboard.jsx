@@ -5,6 +5,7 @@ import Projects from "../components/res/admin/Projects.jsx";
 import ProjectEdit from "../components/res/admin/Project.edit.jsx";
 import Messages from "../components/res/admin/Messages.jsx";
 import AdminDetails from "../components/res/admin/User.edit.jsx";
+import ProjectCreate from "../components/res/admin/Project.create.jsx";
 
 const Sidebar = ({ onViewChange }) => {
   return (
@@ -25,6 +26,14 @@ const Sidebar = ({ onViewChange }) => {
             onClick={() => onViewChange("projects")}
           >
             <i className="fas fa-diagram-project"></i> Projects
+          </button>
+        </li>
+        <li className="nav-item">
+          <button
+            className="nav-link text-white btn btn-link"
+            onClick={() => onViewChange("create")}
+          >
+            <i className="fas fa-square-plus"></i> Create New Project
           </button>
         </li>
         <li className="nav-item">
@@ -69,6 +78,8 @@ const Main = ({ handelDep }) => {
       case "project":
         return <ProjectEdit projectId={projectId} />;
 
+      case "create":
+        return <ProjectCreate />;
       case "messages":
         return <Messages />;
 

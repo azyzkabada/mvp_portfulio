@@ -2,11 +2,22 @@ import React, { useEffect, useState } from "react";
 import helpers from "../../../../helpers/textImpacts.js";
 const { limiterTexte } = helpers;
 import API from "../../../../api/common/projects.api.js";
-const { toggleDisplayStatus } = API;
+const { toggleDisplayStatus, deleteProject } = API;
 
-function Row({ data, switchView }) {
+function Row({ data, switchView, setDep }) {
   const [datas, setDatas] = useState([]);
   const [display, setDisplay] = useState(null);
+
+  const handleDelete = async () => {
+    try {
+      const respose = deleteProject(data.id);
+      if (respose) {
+        setDep();
+      }
+    } catch (error) {
+      console.log("erreur :", error);
+    }
+  };
 
   const handleToggle = () => {
     toggleDisplayStatus(data.id);
@@ -66,6 +77,13 @@ function Row({ data, switchView }) {
           onClick={() => handleSwitch(data.id)}
         >
           edit
+        </button>
+        <button
+          style={buttonStyles.false}
+          className="btn btn-primary mx-2"
+          onClick={handleDelete}
+        >
+          delete
         </button>
       </th>
     </tr>
